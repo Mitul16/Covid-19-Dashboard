@@ -438,7 +438,7 @@ class Graph {
         // using custom values
         
         const numPieces = str.split('\n').length;
-        return numPieces * 80 * scalingFactor + (numPieces - 1) * 40 * scalingFactor;
+        return numPieces * textSize * scalingFactor + (numPieces - 1) * textSize / 2 * scalingFactor;
       }
     }, id);
   }
