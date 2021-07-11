@@ -1,0 +1,60 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  user-select: none;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Waiting for the Sunrise', sans;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.p5Graph {
+  margin: 0.2em;
+}
+
+/* media queries for device type specific sizing properties */
+
+@media only screen and (max-width: 799px) {
+  .p5Graph {
+    width: 92vw;
+  }
+  
+  .graph-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .p5Graph {
+    width: 48vw;
+  }
+  
+  .graph-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .p5Graph {
+    width: 32vw;
+  }
+  
+  .graph-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

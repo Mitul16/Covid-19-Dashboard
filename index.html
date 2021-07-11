@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get pseudo real-time information about the state of Covid-19 in India">
+  <title>Covid-19 Vaccination Dashboard</title>
+  
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise">
+  
+  <script language="javascript" type="text/javascript" src="fetchData.js"></script>
+</head>
+
+<body>
+  <header>
+    <div>
+      <h1>Covid-19 Vaccination Dashboard</h1>
+    </div>
+  </header>
+  
+  <div class="graph-container">
+    <div id="p5Graph-confirmed" class="p5Graph"></div>
+    <div id="p5Graph-recovered" class="p5Graph"></div>
+    <div id="p5Graph-vaccinated1" class="p5Graph"></div>
+    <div id="p5Graph-vaccinated2" class="p5Graph"></div>
+    <div id="p5Graph-died" class="p5Graph"></div>
+  </div>
+  
+  <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="./js/Graph.js" defer></script>
+  <script language="javascript" type="text/javascript" src="./js/Covid19-tracker.js" defer></script>
+</body>
+</html>
