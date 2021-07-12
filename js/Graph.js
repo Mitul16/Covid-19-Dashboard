@@ -6,7 +6,8 @@ class Graph {
     // rendering
     var scalingFactor;
     const graphScalingFactor = 0.92, aspectRatio = 2;
-    
+    var lastDarkMode = darkMode;
+
     // keep these low to accomodate space for headings, legends, labels, .........perhaps my name
     const xAxisScalingFactor = 0.96, yAxisScalingFactor = 0.8;
     
@@ -43,8 +44,11 @@ class Graph {
       // everything is in here, all the drawing/rendering stuff (it can be done elsewhere, who cares)
       sketch.draw = () => {
         // this is temporary, rendering is stopped after inactivity (see below, somewhere)
-        if (stopDrawing) {
+        if (stopDrawing && lastDarkMode == darkMode) {
           return;
+        }
+        else {
+          lastDarkMode = darkMode;
         }
         
         //console.log(sketch.canvas.parentElement.id, sketch.frameCount);
