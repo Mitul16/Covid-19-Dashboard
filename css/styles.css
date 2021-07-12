@@ -1,24 +1,90 @@
+:root {
+  --bg-color: #FFFFFF;
+  --bg-color-dark: #101010;
+}
+
 body {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  user-select: none;
+  justify-content: space-between;
+  background-color: var(--bg-color);
+  font-family: 'Waiting for the Sunrise', sans;
+  text-align: center;
   margin: 0;
   padding: 0;
+  user-select: none;
+  min-height: 100vh;
+}
+
+.dark-mode {
+  background-color: var(--bg-color-dark);
+  color: white;
 }
 
 header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-family: 'Waiting for the Sunrise', sans;
+  justify-content: space-between;
+}
+
+header .heading-text {
+  font-size: 2rem;
   text-decoration: underline;
-  text-align: center;
+  width: calc(100% - 5rem);
+  padding-left: 5rem;
+}
+
+header .dark-mode-container {
+  background-color: white;
+  width: 3rem;
+  aspect-ratio: 2;
+  margin: 0 1rem 0 1rem;
+  border: 0.2rem solid grey;
+  border-radius: 1rem;
+}
+
+header .dark-mode-button {
+  background-color: black;
+  width: 56%;
+  aspect-ratio: 1;
+  border-radius: 1rem;
+  transition: all 100ms;
+}
+
+.dark-mode header .dark-mode-button {
+  margin-left: 50%;
+}
+
+footer span {
+  font-size: 1.6rem;
+  width: 100%;
+}
+
+footer a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.dummy-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  /* shoule be close to the aspect-ratio of the graphs */
+  aspect-ratio: 2;
 }
 
 .p5Graph {
-  margin: 0.2em;
+  display: flex;
+  margin: 0.2rem;
+  border-radius: 0.5rem;
+}
+
+.graph-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* media queries for device type specific sizing properties */
@@ -29,9 +95,7 @@ header {
   }
   
   .graph-container {
-    display: flex;
     flex-direction: column;
-    justify-content: center;
   }
 }
 
@@ -41,9 +105,19 @@ header {
   }
   
   .graph-container {
-    display: flex;
     flex-wrap: wrap;
-    justify-content: center; 
+  }
+}
+
+/* for mobiles and tablets, remove the blue highlight box from links */
+@media only screen and (max-width: 1200px) {
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
@@ -53,8 +127,6 @@ header {
   }
   
   .graph-container {
-    display: flex;
     flex-wrap: wrap;
-    justify-content: center;
   }
 }

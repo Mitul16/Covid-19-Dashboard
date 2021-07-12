@@ -1,5 +1,6 @@
 // implement a button to toggle between showing the increasing data and showing per day data (disable sampled data in the former)
 //   -> implemented the feature, need to implement the button/switch
+//   -> done! - a little awkward scaling is used because of the font dimension values, may cause issues when the font is not loaded
 
 // implement a function to draw a box with given content (strings) to show it attached to the current user point
 //   -> done!
@@ -85,8 +86,28 @@ var deathsConfiguration = {
   key: 'deceased'
 };
 
-var graph1 = new Graph(casesConfiguration, 'p5Graph-confirmed'),
-  graph2 = new Graph(vaccination1Configuration, 'p5Graph-vaccinated1'),
-  graph3 = new Graph(vaccination2Configuration, 'p5Graph-vaccinated2'),
-  graph4 = new Graph(recoveryConfiguration, 'p5Graph-recovered'),
-  graph5 = new Graph(deathsConfiguration, 'p5Graph-died');
+var graphs = {
+  'confirmed': new Graph(casesConfiguration, 'p5Graph-confirmed'),
+  'vaccinated1': new Graph(vaccination1Configuration, 'p5Graph-vaccinated1'),
+  'vaccinatedd2': new Graph(vaccination2Configuration, 'p5Graph-vaccinated2'),
+  'recovered': new Graph(recoveryConfiguration, 'p5Graph-recovered'),
+  'deceased': new Graph(deathsConfiguration, 'p5Graph-died')
+};
+
+// set the darkMode, remove the dummy text elements put in place of the graphs, as a placeholder
+(() => {
+  let dummyTextElements = document.getElementsByClassName('dummy-text');
+
+  while (dummyTextElements.length) {
+    dummyTextElements[0].remove();
+  }
+})();
+
+function setDarkMode() {
+  if (darkMode) {
+    document.getElementsByTagName('body')[0].classList.add('dark-mode');
+  }
+  else {
+    document.getElementsByTagName('body')[0].classList.remove('dark-mode');
+  }
+}

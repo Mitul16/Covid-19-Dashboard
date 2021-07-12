@@ -10,6 +10,8 @@ const dataSource = "https://api.covid19india.org";
 // testing
 //const apiURL = './data/timeseries.json';
 
+// hey, source code viewer! play around with some variables
+
 var dataFetched, dataCrunched, fetchMessage = "", crunchMessage = "", json, data, metadata, dataError, errorMessage, sampledData, samplingAmount = 8, skipLength, emptyData;
 
 const whatToExtract = [
@@ -19,6 +21,33 @@ const whatToExtract = [
   'vaccinated2',
   'deceased'
 ];
+
+var darkMode = localStorage.darkMode | false;
+
+function toggleDarkMode() {
+  darkMode ^= true;
+  localStorage.darkMode = darkMode;
+
+  document.getElementsByTagName('body')[0].classList.toggle('dark-mode');
+
+  // redraw each graph for new mode to take effect
+  if (graphs) {
+    for (let graphType in graphs) {
+      graphs[graphType].sketch.redraw();
+    }
+  }
+}
+
+function setDarkMode() {
+  if (darkMode) {
+    document.getElementsByTagName('body')[0].classList.add('dark-mode');
+  }
+  else {
+    document.getElementsByTagName('body')[0].classList.remove('dark-mode');
+  }
+}
+
+window.onload = setDarkMode;
 
 fetchAndProcess();
 
