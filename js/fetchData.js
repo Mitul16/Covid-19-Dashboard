@@ -73,20 +73,14 @@ function parseJSON(json) {
           let key = whatToExtract[index];
           
           if (json[state].dates[date].delta[key]) {
-            temp[date][key].delta += Math.round(json[state].dates[date].delta[key] / 2);  // don't know why I am getting double data
+            temp[date][key].delta += json[state].dates[date].delta[key];
           }
         }
       }
-      
-      if (json[state].dates[date].total) {
-        for (let index in whatToExtract) {
-          let key = whatToExtract[index];
-          
-          if (json[state].dates[date].total[key]) {
-            temp[date][key].total += Math.round(json[state].dates[date].total[key] / 2);  // don't know why I am getting double data
-          }
-        }
-      }
+
+      // looks like the last day values are not correct, from the API
+      // summed up the deltas after sorting the `data` by `date`, to calculate the totals till that `date`
+      // see below, after sorting of `data`
     }
   }
   
@@ -96,6 +90,9 @@ function parseJSON(json) {
     for (let index in whatToExtract) {
       let key = whatToExtract[index];
       
+      // don't know why I am getting double data values
+      temp[date][key].delta = Math.round(temp[date][key].delta / 2);
+
       dtStat[key].delta = Math.max(dtStat[key].delta, temp[date][key].delta);
       dtStat[key].total += temp[date][key].delta;
     }
@@ -123,6 +120,17 @@ function parseJSON(json) {
     return parseInt(A[2] + A[1] + A[0]) - parseInt(B[2] + B[1] + B[0]);
   });
   
+  var totalSum = JSON.copy(emptyData);
+
+  for (let i in data) {
+    for (let j in whatToExtract) {
+      let key = whatToExtract[j];
+
+      totalSum[key].total += data[i][key].delta;
+      data[i][key].total = totalSum[key].total;
+    }
+  }
+
   return [
     d,
     data
