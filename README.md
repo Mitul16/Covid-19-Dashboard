@@ -1,6 +1,8 @@
 # WebD-Selection
 Basic frontend only website project that displays a simple dashboard for simple Covid-19 statistics
 
+Check out this website [here](https://mitul16.github.io/WebD-Selection/)
+
 # About
 This is a basic, very simple website to show you some of the important information about Covid-19 in India
 
