@@ -25,7 +25,7 @@ fetchAndProcess();
 async function fetchData() {
   dataFetched = false;
   
-  fetch(apiURL)
+  fetch(apiURL, { cache: 'no-store' })
     .then(response => response.json())
     .then(result => {
       json = result;
@@ -194,7 +194,7 @@ async function createFetchMessages() {
   
   fetchMessage = "";
   
-  await sleep(400);  
+  await sleep(400);
   fetchMessage = list[0];
   
   await sleep(1600);
@@ -206,6 +206,7 @@ async function createCrunchMessages() {
   
   while (!dataCrunched) {
     let i = 0;
+
     crunchMessage = "";
     await sleep(200);
     

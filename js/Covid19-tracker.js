@@ -44,6 +44,11 @@
 // why is all the data double in value??
 //   -> added a quick fix for now (... / 2)
 
+// now, why the heck is the data value lesser than the one before (total)
+// moreover, metadata.total and data[last].total doesn't match
+//   -> because I have used Math.round(... / 2);
+//   -> why am I getting doubled????
+
 var casesConfiguration = {
   color: '#FF0000FF',
   title: 'Confirmed Cases',

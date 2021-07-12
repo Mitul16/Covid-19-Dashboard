@@ -168,13 +168,13 @@ class Graph {
             if (displayPerDayData) {
               sketch.vertex(
                 sketch.width * xAxisScalingFactor * 0.5,
-                (data[0][graphConfiguration.key].delta / metadata[graphConfiguration.key].deltaMax - 0.5) * sketch.height * yAxisScalingFactor
+                -0.5 * sketch.height * yAxisScalingFactor
               );
             }
             else {
               sketch.vertex(
                 sketch.width * xAxisScalingFactor * 0.5,
-                (data[0][graphConfiguration.key].total / metadata[graphConfiguration.key].total - 0.5) * sketch.height * yAxisScalingFactor
+                -0.5 * sketch.height * yAxisScalingFactor
               );
             }
 
@@ -396,7 +396,7 @@ class Graph {
       }
       
       function getPositionOnGraph() {
-        var dataIndex = skipLength * parseInt(sketch.round(sketch.map((sketch.mouseX - sketch.width/2) / graphScalingFactor, -sketch.width * xAxisScalingFactor * 0.5, sketch.width * xAxisScalingFactor * 0.5, 0, data.length - 1) / skipLength));
+        var dataIndex = skipLength * Math.round(sketch.round(sketch.map((sketch.mouseX - sketch.width/2) / graphScalingFactor, -sketch.width * xAxisScalingFactor * 0.5, sketch.width * xAxisScalingFactor * 0.5, 0, data.length - 1) / skipLength));
         
         // prevent floating point error from causing IndexErrors
         if (dataIndex < 0) {
