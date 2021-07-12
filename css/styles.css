@@ -55,14 +55,17 @@ header .dark-mode-button {
   margin-left: 50%;
 }
 
-footer span {
+footer div {
   font-size: 1.6rem;
   width: 100%;
 }
 
-footer a {
-  color: inherit;
+footer span {
   text-decoration: underline;
+}
+
+footer span:hover {
+  cursor: pointer;
 }
 
 .dummy-text {
