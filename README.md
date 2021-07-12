@@ -4,7 +4,7 @@ Basic frontend only website project that displays a simple dashboard for simple 
 Check out this website [here](https://mitul16.github.io/WebD-Selection/)
 
 # About
-This is a basic, very simple website to show you some of the important information about Covid-19 in India
+This is a basic, very simple website to show you some of the important information about [Covid-19](https://www.mygov.in/covid-19/) in India
 
 There are multiple hidden elements, the website doesn't consume much of the hardware resources
 
@@ -15,6 +15,11 @@ The __frames__ are drawn only when there is a change
 Most of the work is done manually, no __third-party__ library is harmed other than [p5js](https://p5js.org/)
 
 > More information is available in [./js/Covid19-tracker.js](https://github.com/Mitul16/WebD-Selection/blob/main/js/Covid19-tracker.js)
+
+## Data source
+All of the data is being taken from https://api.covid19india.org
+
+> NOTE: In the beginning, I was using data from multiple sources. You may find some residues in the code regarding this. I switched to a single data source in the end.
 
 # Preview
 ![Preview-1](./preview/preview-1.png)
