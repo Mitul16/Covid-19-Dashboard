@@ -18,12 +18,9 @@ class Graph {
     var graphDrawn, lastMouseMovementTimeMillis, stopDrawing = false, showInformationBox = true;
     var informationBoxX, informationBoxY, informationBoxTargetX, informationBoxTargetY, informationBoxThresholdDistance = 8, informationBoxLerpFactor = 0.1;
 
+    // new p5(sketch, id);
     this.sketch = new p5((sketch) => {
       // setup the canvas
-      // We will...we will...draw you!
-      // We will...we will...draw you!
-      // We will...we will...draw you!
-      // ...a graph
       sketch.setup = () => {
         // strip out the dimensions of my parent
         let element = document.getElementById(sketch.canvas.parentElement.id);  // or id
@@ -41,7 +38,11 @@ class Graph {
         sketch.textFont('Waiting for the Sunrise');
       };
       
-      // everything is in here, all the drawing/rendering stuff (it can be done elsewhere, who cares)
+      // everything is in here, all the drawing/rendering stuff (it can be done elsewhere, but who cares, keep it simple)
+      // We will...we will...draw you!
+      // We will...we will...draw you!
+      // We will...we will...draw you!
+      // ...a graph
       sketch.draw = () => {
         // this is temporary, rendering is stopped after inactivity (see below, somewhere)
         if (stopDrawing && lastDarkMode == darkMode) {
@@ -57,17 +58,17 @@ class Graph {
         // then in CSS using border-radius: ...; works!
         // or we can use 'clip', to clip the corners and make them round
         // it is easier to control in here
-
+        
         // translate the canvas' origin to the center
         sketch.translate(sketch.width / 2, sketch.height / 2);
         sketch.noStroke();
-        sketch.fill(sketch.abs((darkMode ? 0 : 255) - 64));
+        sketch.fill(sketch.abs((darkMode ? 0 : 255) - 32));
         sketch.rectMode(sketch.CENTER);
         sketch.rect(0, 0, sketch.width, sketch.height, 32 * scalingFactor);
         
         sketch.textAlign(sketch.CENTER, sketch.CENTER);
         
-        // aw snap!!
+        // Aw snap!!
         if (dataError) {
           sketch.fill(255, 0, 0);
           // yeah! `backticks` - command injection XD
@@ -133,7 +134,7 @@ class Graph {
             const f = 0.2, t = 0.4;
             
             var prevX, prevY, currX, currY, nextX, nextY;
-
+            
             if (displayPerDayData) {
               prevX = -sketch.width * xAxisScalingFactor * 0.5;
               prevY = (data[0][graphConfiguration.key].delta / metadata[graphConfiguration.key].deltaMax - 0.5) * sketch.height * yAxisScalingFactor;
@@ -145,7 +146,7 @@ class Graph {
             
             for (var i = 1; i < data.length; i += skipLength) {
               currX = (i / (data.length - 1) - 0.5) * sketch.width * xAxisScalingFactor;
-
+              
               if (displayPerDayData) {
                 currY = (data[i][graphConfiguration.key].delta / metadata[graphConfiguration.key].deltaMax - 0.5) * sketch.height * yAxisScalingFactor;
               }
@@ -155,7 +156,7 @@ class Graph {
               
               if (i < data.length - 1) {
                 nextX = ((i + 1) / (data.length - 1) - 0.5) * sketch.width * xAxisScalingFactor;
-
+                
                 if (displayPerDayData) {
                   nextY = (data[i + 1][graphConfiguration.key].delta / metadata[graphConfiguration.key].deltaMax - 0.5) * sketch.height * yAxisScalingFactor;
                 }
@@ -195,7 +196,7 @@ class Graph {
                 -0.5 * sketch.height * yAxisScalingFactor
               );
             }
-
+            
             sketch.endShape(sketch.CLOSE);
             
             // use a darker (pale) color
@@ -225,7 +226,7 @@ class Graph {
             sketch.strokeWeight(4 * scalingFactor);
             sketch.line(-sketch.width * 0.5, -sketch.height * yAxisScalingFactor * 0.5, sketch.width * 0.5, -sketch.height * yAxisScalingFactor * 0.5);
             sketch.line(-sketch.width * xAxisScalingFactor * 0.5, -sketch.height * 0.5, -sketch.width * xAxisScalingFactor * 0.5, sketch.height * 0.5);
-
+            
             if (showInformationBox && isMouseHover()) {
               const position = getPositionOnGraph();
               
@@ -234,7 +235,8 @@ class Graph {
                 informationBoxY = position.y;
               }
               else {
-                // slide...weeeeeeeeee!
+                // slide...weeeeeeeeee....oh shit!
+                // this should be time dependent like `alpha * frameTime`, but anyway
                 informationBoxX += (informationBoxTargetX - informationBoxX) * informationBoxLerpFactor;
                 informationBoxY += (informationBoxTargetY - informationBoxY) * informationBoxLerpFactor;
               }
@@ -279,7 +281,7 @@ class Graph {
             sketch.textFont('Monospace');
             sketch.noStroke();
             sketch.fill(darkMode ? 255 : 0);
-            sketch.textSize(textSize * scalingFactor * 0.72);
+            sketch.textSize(textSize * scalingFactor * 0.6);
             sketch.textAlign(sketch.CENTER, sketch.CENTER);
             // can do something like longDataSour... but I know my `data source` string fits in the available space
             sketch.text(`Data source: ${dataSource}`, sketch.width * (1 - xAxisScalingFactor) / 2 * 0.5, sketch.height / 2 - sketch.height * (1 - yAxisScalingFactor) / 2 * 0.5);
@@ -314,6 +316,7 @@ class Graph {
       };
       
       sketch.windowResized = () => {
+        // strip out the dimensions of my parent
         let element = document.getElementById(sketch.canvas.parentElement.id);
         let rect = element.getBoundingClientRect();
         let x = rect.left, y = rect.top, w = (rect.right - rect.left), h = (rect.bottom - rect.top);
@@ -330,7 +333,7 @@ class Graph {
         if (!dataError && !(dataFetched && dataCrunched)) {
           return;
         }
-
+        
         if (isMouseHover()) {
           startRenderingOnMouseEvent();
 
@@ -348,7 +351,7 @@ class Graph {
       
       sketch.mouseDragged = startRenderingOnMouseEvent;
       sketch.mouseMoved = startRenderingOnMouseEvent;
-
+      
       function startRenderingOnMouseEvent() {
         if (!(dataFetched && dataCrunched)) {
           return;
@@ -372,7 +375,7 @@ class Graph {
       
       function doRenderingSetup() {
         // is this a good way for scaling?
-        //  -> tested in a private project, Kishan Sir knows about that one
+        //   -> tested in a private project, Kishan Sir knows about that one
         scalingFactor = sketch.width / 1920;
         sketch.textSize(textSize * scalingFactor);
       }
@@ -391,7 +394,7 @@ class Graph {
         // no not that skirts, Think Different - eat an `Apple`
         return sketch.mouseX > 0 && sketch.mouseX < sketch.width && sketch.mouseY > 0 && sketch.mouseY < sketch.height;
       }
-
+      
       function isChangeDisplayModeButtonHover() {
         // return `true` when the mouse is coinciding within the given button
 sketch.width / 2 - textSize * scalingFactor * 2.4, -sketch.height / 2 + textSize * scalingFactor * 0.8, textSize * scalingFactor * 4, textSize *
@@ -399,12 +402,12 @@ sketch.width / 2 - textSize * scalingFactor * 2.4, -sketch.height / 2 + textSize
 
         return sketch.mouseX > sketch.width - textSize * scalingFactor * 4.4 && sketch.mouseX < sketch.width - textSize * scalingFactor * 0.4 && sketch.mouseY > textSize * scalingFactor * 0.3 && sketch.mouseY < textSize * scalingFactor * 1.3;
       }
-
+      
       function showInformationInBox(boxText, boxX, boxY) {
         // use custom textWidth and textHeight to handle '\n' characters
         const strTextWidth = getTextWidth(boxText), strTextHeight = getTextHeight(boxText),
           boxWidth = strTextWidth + 24 * scalingFactor, boxHeight = strTextHeight, boxRadius = 16 * scalingFactor, outskirtDistance = 8 * scalingFactor;
-          
+        
         const x = sketch.constrain(boxX, -sketch.width * xAxisScalingFactor * 0.5 + boxWidth / 2 + outskirtDistance, sketch.width * xAxisScalingFactor * 0.5 - boxWidth / 2 - outskirtDistance),
           y = -sketch.constrain(boxY, -sketch.height * yAxisScalingFactor * 0.5 + boxHeight / 2 + outskirtDistance, sketch.height * yAxisScalingFactor * 0.5 - boxHeight / 2 - outskirtDistance);
         
@@ -433,7 +436,7 @@ sketch.width / 2 - textSize * scalingFactor * 2.4, -sketch.height / 2 + textSize
         }
         
         var x = sketch.map(dataIndex, 0, data.length - 1, -sketch.width * xAxisScalingFactor * 0.5, sketch.width * xAxisScalingFactor * 0.5), y;
-
+        
         if (displayPerDayData) {
           y = data[dataIndex][graphConfiguration.key].delta / metadata[graphConfiguration.key].deltaMax * sketch.height * yAxisScalingFactor - sketch.height * yAxisScalingFactor * 0.5;
         }

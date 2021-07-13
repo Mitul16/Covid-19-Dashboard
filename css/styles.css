@@ -14,6 +14,7 @@ body {
   padding: 0;
   user-select: none;
   min-height: 100vh;
+  transition: color 200ms;
 }
 
 .dark-mode {
@@ -35,8 +36,10 @@ header .heading-text {
 }
 
 header .dark-mode-container {
-  background-color: white;
-  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
   aspect-ratio: 2;
   margin: 0 1rem 0 1rem;
   border: 0.2rem solid grey;
@@ -45,14 +48,18 @@ header .dark-mode-container {
 
 header .dark-mode-button {
   background-color: black;
-  width: 56%;
+  width: 44%;
   aspect-ratio: 1;
+  /* margin-left: -44%; */
+  margin: 0 44% 0 0;
   border-radius: 1rem;
-  transition: all 100ms;
+  transition: 200ms;
 }
 
 .dark-mode header .dark-mode-button {
-  margin-left: 50%;
+  background-color: white;
+  /* margin-left: 44%; */
+  margin: 0 0 0 44%;
 }
 
 footer div {
@@ -62,9 +69,12 @@ footer div {
 
 footer span {
   text-decoration: underline;
+
+  /* transition: color 100ms; /* why isn't this working for color, because `body { has transition too }` */
 }
 
 footer span:hover {
+  color: royalblue;
   cursor: pointer;
 }
 
@@ -116,7 +126,7 @@ footer span:hover {
 @media only screen and (max-width: 1200px) {
   * {
     -webkit-touch-callout: none;
-    -webkit-user-select: none;;
+    -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
