@@ -22,4 +22,4 @@ All of the data is being taken from https://api.covid19india.org
 > NOTE: In the beginning, I was using data from multiple sources. You may find some residues in the code regarding this. I switched to a single data source in the end.
 
 # Preview
-![Preview-1](./preview/preview-1.png)
+![Preview](./preview/preview.png)
