@@ -9,11 +9,10 @@
 //   -> done!
 
 // add dark mode, make use of DOM `onclick` method
+//   -> done!
 
 // perform spline interpolation of the data
 //   -> done!
-
-// create sections of screen size so that the graphs are neither under-scaled nor over-scaled
 
 // use colors specific to the data category?
 //   -> done!
@@ -48,7 +47,7 @@
 // now, why the heck is the data value lesser than the one before (total)
 // moreover, metadata.total and data[last].total doesn't match
 //   -> because I have used Math.round(... / 2);
-//   -> why am I getting doubled????
+//   -> why am I getting doubled values????
 
 var casesConfiguration = {
   color: '#FF0000FF',
