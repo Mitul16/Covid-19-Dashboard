@@ -47,6 +47,8 @@ function setDarkMode() {
   }
 }
 
+// set the dark mode (if previously saved in localStorage)
+// cannot modify the `classList` before the document is rendered
 window.onload = setDarkMode;
 
 fetchAndProcess();
