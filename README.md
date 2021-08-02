@@ -14,8 +14,6 @@ The __frames__ are drawn only when there is a change
 
 Most of the work is done manually, no __third-party__ library is harmed other than [p5js](https://p5js.org/)
 
-> More information is available in [./js/Covid19-tracker.js](https://github.com/Mitul16/WebD-Selection/blob/main/js/Covid19-tracker.js)
-
 ## Data source
 All of the data is being taken from https://api.covid19india.org
 
