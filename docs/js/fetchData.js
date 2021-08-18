@@ -4,7 +4,8 @@
 
 // but this was a just round1 (basic) for WebD-selection, although I have already been selected
 
-const apiURL = "https://api.covid19india.org/v4/min/timeseries.min.json";
+//const apiURL = "https://api.covid19india.org/v4/min/timeseries.min.json";
+const apiURL = "https://data.covid19india.org/v4/min/timeseries.min.json";
 const dataSource = "https://api.covid19india.org";
 
 // testing
