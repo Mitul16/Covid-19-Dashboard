@@ -15,45 +15,50 @@
 
 <body>
   <div class="main-container">
-  <header>
-    <span class="heading-text">Covid-19 Vaccination Dashboard</span>
-    <div class="dark-mode-container" onclick=toggleDarkMode()>
-      <div class="dark-mode-button"></div>
-    </div>
-  </header>
-  
-  <div class="graph-container">
-    <div id="p5Graph-confirmed" class="p5Graph">
-      <div class="dummy-text">
-        <h3>A graph will be displayed here, please wait</h3>
+    <header>
+      <span class="heading-text">Covid-19 Vaccination Dashboard</span>
+      <div class="dark-mode-container" onclick=toggleDarkMode()>
+        <div class="dark-mode-button"></div>
+      </div>
+    </header>
+    
+    <div class="graph-container">
+      <div id="p5Graph-confirmed" class="p5Graph">
+        <div class="dummy-text">
+          <h3>A graph will be displayed here, please wait</h3>
+        </div>
+      </div>
+
+      <div id="p5Graph-recovered" class="p5Graph">
+        <div class="dummy-text">
+          <h3>A graph will be displayed here, please wait</h3>
+        </div>
+      </div>
+
+      <div id="p5Graph-vaccinated1" class="p5Graph">
+        <div class="dummy-text">
+          <h3>A graph will be displayed here, please wait</h3>
+        </div>
+      </div>
+
+      <div id="p5Graph-vaccinated2" class="p5Graph">
+        <div class="dummy-text">
+          <h3>A graph will be displayed here, please wait</h3>
+        </div>
+      </div>
+      
+      <div id="p5Graph-died" class="p5Graph">
+        <div class="dummy-text">
+          <h3>A graph will be displayed here, please wait</h3>
+        </div>
       </div>
     </div>
-    <div id="p5Graph-recovered" class="p5Graph">
-      <div class="dummy-text">
-        <h3>A graph will be displayed here, please wait</h3>
-      </div>
-    </div>
-    <div id="p5Graph-vaccinated1" class="p5Graph">
-      <div class="dummy-text">
-        <h3>A graph will be displayed here, please wait</h3>
-      </div>
-    </div>
-    <div id="p5Graph-vaccinated2" class="p5Graph">
-      <div class="dummy-text">
-        <h3>A graph will be displayed here, please wait</h3>
-      </div>
-    </div>
-    <div id="p5Graph-died" class="p5Graph">
-      <div class="dummy-text">
-        <h3>A graph will be displayed here, please wait</h3>
-      </div>
-    </div>
-  </div>
   </div>
 
   <footer>
     <div>made by <span onclick="window.open('https://github.com/Mitul16', '_blank')">Mitul Varshney</span></div>
   </footer>
+
   <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
   <script language="javascript" type="text/javascript" src="./js/Graph.js" defer></script>
   <script language="javascript" type="text/javascript" src="./js/Covid19-tracker.js" defer></script>
