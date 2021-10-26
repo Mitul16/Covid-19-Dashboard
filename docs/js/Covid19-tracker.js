@@ -26,7 +26,6 @@ var vaccination2Configuration = {
   key: 'vaccinated2'
 };
 
-
 var deathsConfiguration = {
   color: '#000000FF',
   title: 'People Died',
