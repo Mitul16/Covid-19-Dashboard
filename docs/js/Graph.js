@@ -90,7 +90,10 @@ class Graph {
 
             sketch.stroke(darkMode ? 255 : 0);
             sketch.strokeWeight(2 * scalingFactor);
-            sketch.line(-titleTextWidth / 2, -sketch.height / 2 + textSize * scalingFactor + sketch.textDescent() / 2, titleTextWidth / 2, -sketch.height / 2 + textSize * scalingFactor + sketch.textDescent() / 2);
+            sketch.line(
+              -titleTextWidth / 2, -sketch.height / 2 + textSize * scalingFactor + sketch.textDescent() / 2,
+              +titleTextWidth / 2, -sketch.height / 2 + textSize * scalingFactor + sketch.textDescent() / 2
+            );
 
             if (isChangeDisplayModeButtonHover()) {
               sketch.fill(128, 192);
@@ -100,11 +103,18 @@ class Graph {
             }
 
             sketch.rectMode(sketch.CENTER);
-            sketch.rect(sketch.width / 2 - textSize * scalingFactor * 2.4, -sketch.height / 2 + textSize * scalingFactor * 0.8, textSize * scalingFactor * 4, textSize * scalingFactor, textSize * scalingFactor);
+            sketch.rect(
+              sketch.width / 2 - textSize * scalingFactor * 2.4, -sketch.height / 2 + textSize * scalingFactor * 0.8,
+              textSize * scalingFactor * 4, textSize * scalingFactor, textSize * scalingFactor
+            );
 
             sketch.noStroke();
             sketch.fill(darkMode ? 255 : 0);
-            sketch.text(displayPerDayData ? 'per-day' : 'total', sketch.width / 2 - textSize * scalingFactor * 2.4, -sketch.height / 2 + textSize * scalingFactor);
+            sketch.text(
+              displayPerDayData ? 'per-day' : 'total',
+              sketch.width / 2 - textSize * scalingFactor * 2.4,
+              -sketch.height / 2 + textSize * scalingFactor
+            );
 
             // nah, we aren't doing any `assembly` stuff here!!! - push esp...ret
             sketch.push();
@@ -120,10 +130,16 @@ class Graph {
 
             // starting point
             if (displayPerDayData) {
-              sketch.vertex(-sketch.width * xAxisScalingFactor * 0.5, (data[0][graphConfiguration.key].delta / metadata[graphConfiguration.key].deltaMax - 0.5) * sketch.height * yAxisScalingFactor);
+              sketch.vertex(
+                -sketch.width * xAxisScalingFactor * 0.5,
+                (data[0][graphConfiguration.key].delta / metadata[graphConfiguration.key].deltaMax - 0.5) * sketch.height * yAxisScalingFactor
+              );
             }
             else {
-              sketch.vertex(-sketch.width * xAxisScalingFactor * 0.5, (data[0][graphConfiguration.key].total / metadata[graphConfiguration.key].total - 0.5) * sketch.height * yAxisScalingFactor);
+              sketch.vertex(
+                -sketch.width * xAxisScalingFactor * 0.5,
+                (data[0][graphConfiguration.key].total / metadata[graphConfiguration.key].total - 0.5) * sketch.height * yAxisScalingFactor
+              );
             }
 
             // sketch.curveVertex and sketck.bezierVertex weren't working as needed
@@ -264,8 +280,11 @@ class Graph {
               sketch.scale(1, -1);
 
               showInformationInBox(
-                (!displayPerDayData ? 'till' : 'on') + ' date: ' + data[position.dataIndex].date +
-                  '\n' + (!displayPerDayData ? 'total ' : '') + graphConfiguration.message + data[position.dataIndex][graphConfiguration.key][displayPerDayData ? 'delta' : 'total'],
+                (!displayPerDayData ? 'till' : 'on') + ' date: ' +
+                  data[position.dataIndex].date +
+                  '\n' + (!displayPerDayData ? 'total ' : '') +
+                  graphConfiguration.message +
+                  data[position.dataIndex][graphConfiguration.key][displayPerDayData ? 'delta' : 'total'],
                 informationBoxX, informationBoxY
               );
             }
@@ -292,7 +311,10 @@ class Graph {
 
             // if the last interaction was more than 200ms ago or if user is not interacting with this graph
             // and if the informationBox has reached its target position
-            if (sketch.millis() - lastMouseMovementTimeMillis > 200 && sketch.dist(informationBoxX, informationBoxY, informationBoxTargetX, informationBoxTargetY) < informationBoxThresholdDistance * scalingFactor) {
+            if (
+              sketch.millis() - lastMouseMovementTimeMillis > 200 &&
+              sketch.dist(informationBoxX, informationBoxY, informationBoxTargetX, informationBoxTargetY) < informationBoxThresholdDistance * scalingFactor
+            ) {
               // simply stop drawing the frame
               stopDrawing = true;
 
@@ -400,7 +422,10 @@ class Graph {
 sketch.width / 2 - textSize * scalingFactor * 2.4, -sketch.height / 2 + textSize * scalingFactor * 0.8, textSize * scalingFactor * 4, textSize *
     scalingFactor, textSize * scalingFactor
 
-        return sketch.mouseX > sketch.width - textSize * scalingFactor * 4.4 && sketch.mouseX < sketch.width - textSize * scalingFactor * 0.4 && sketch.mouseY > textSize * scalingFactor * 0.3 && sketch.mouseY < textSize * scalingFactor * 1.3;
+        return sketch.mouseX > sketch.width - textSize * scalingFactor * 4.4 &&
+               sketch.mouseX < sketch.width - textSize * scalingFactor * 0.4 &&
+               sketch.mouseY > textSize * scalingFactor * 0.3 &&
+               sketch.mouseY < textSize * scalingFactor * 1.3;
       }
 
       function showInformationInBox(boxText, boxX, boxY) {
@@ -408,8 +433,15 @@ sketch.width / 2 - textSize * scalingFactor * 2.4, -sketch.height / 2 + textSize
         const strTextWidth = getTextWidth(boxText), strTextHeight = getTextHeight(boxText),
           boxWidth = strTextWidth + 24 * scalingFactor, boxHeight = strTextHeight, boxRadius = 16 * scalingFactor, outskirtDistance = 8 * scalingFactor;
 
-        const x = sketch.constrain(boxX, -sketch.width * xAxisScalingFactor * 0.5 + boxWidth / 2 + outskirtDistance, sketch.width * xAxisScalingFactor * 0.5 - boxWidth / 2 - outskirtDistance),
-          y = -sketch.constrain(boxY, -sketch.height * yAxisScalingFactor * 0.5 + boxHeight / 2 + outskirtDistance, sketch.height * yAxisScalingFactor * 0.5 - boxHeight / 2 - outskirtDistance);
+        const x = sketch.constrain(
+          boxX,
+          -sketch.width * xAxisScalingFactor * 0.5 + boxWidth / 2 + outskirtDistance,
+          sketch.width * xAxisScalingFactor * 0.5 - boxWidth / 2 - outskirtDistance
+        ), y = -sketch.constrain(
+          boxY,
+          -sketch.height * yAxisScalingFactor * 0.5 + boxHeight / 2 + outskirtDistance,
+          sketch.height * yAxisScalingFactor * 0.5 - boxHeight / 2 - outskirtDistance
+        );
 
         sketch.stroke(darkMode ? 255 : 0);
         sketch.strokeWeight(2 * scalingFactor);

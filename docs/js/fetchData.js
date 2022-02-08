@@ -13,7 +13,10 @@ const dataSource = "https://api.covid19india.org";
 
 // hey, source code viewer! play around with some variables
 
-var dataFetched, dataCrunched, fetchMessage = "", crunchMessage = "", json, data, metadata, dataError, errorMessage, sampledData, samplingAmount = 8, skipLength, emptyData;
+var dataFetched, dataCrunched,
+    fetchMessage = "", crunchMessage = "",
+    json, data, metadata, dataError, errorMessage,
+    sampledData, samplingAmount = 8, skipLength, emptyData;
 
 const whatToExtract = [
   'confirmed',
@@ -23,46 +26,16 @@ const whatToExtract = [
   'deceased'
 ];
 
-var darkMode = localStorage.darkMode | false;
-
-function toggleDarkMode() {
-  darkMode ^= true;
-  localStorage.darkMode = darkMode;
-
-  document.getElementsByTagName('body')[0].classList.toggle('dark-mode');
-
-  // redraw each graph for new mode to take effect
-  if (graphs) {
-    for (let graphType in graphs) {
-      graphs[graphType].sketch.redraw();
-    }
-  }
-}
-
-function setDarkMode() {
-  if (darkMode) {
-    document.getElementsByTagName('body')[0].classList.add('dark-mode');
-  }
-  else {
-    document.getElementsByTagName('body')[0].classList.remove('dark-mode');
-  }
-}
-
-// set the dark mode (if previously saved in localStorage)
-// cannot modify the `classList` before the document is rendered
-window.onload = setDarkMode;
-
 fetchAndProcess();
 
 async function fetchData() {
   dataFetched = false;
-  
+
   fetch(apiURL, { cache: 'no-store' })
     .then(response => response.json())
     .then(result => {
       json = result;
       dataFetched = true;
-      
       parseData();
     })
     .catch(err => {
@@ -78,13 +51,13 @@ async function fetchData() {
 JSON.copy = function(source) {
   return JSON.parse(JSON.stringify(source));
 };
-  
+
 function parseJSON(json) {
   emptyData = {};
-  
+
   for (let index in whatToExtract) {
     let key = whatToExtract[index];
-    
+
     emptyData[key] = {
       'delta': 0,
       'total': 0
@@ -92,18 +65,18 @@ function parseJSON(json) {
   }
 
   var temp = {}, d;
-  
+
   for (let state in json) {
     for (let date in json[state].dates) {
       if (!temp[date]) {
         temp[date] = JSON.copy(emptyData);
       }
-      
+
       // use delta7 vice delta for 7-day averaged data
       if (json[state].dates[date].delta) {
         for (let index in whatToExtract) {
           let key = whatToExtract[index];
-          
+
           if (json[state].dates[date].delta[key]) {
             temp[date][key].delta += json[state].dates[date].delta[key];
           }
@@ -115,43 +88,43 @@ function parseJSON(json) {
       // see below, after sorting of `data`
     }
   }
-  
+
   var data = [], dtStat = JSON.copy(emptyData);
-  
+
   for (let date in temp) {
     for (let index in whatToExtract) {
       let key = whatToExtract[index];
-      
+
       // don't know why I am getting double data values
       temp[date][key].delta = Math.round(temp[date][key].delta / 2);
 
       dtStat[key].delta = Math.max(dtStat[key].delta, temp[date][key].delta);
       dtStat[key].total += temp[date][key].delta;
     }
-    
+
     const pieces = date.split('-');
     temp[date].date = `${pieces[2]}/${pieces[1]}/${pieces[0]}`;
-    
+
     data.push(temp[date]);
   }
-  
+
   d = {};
-  
+
   for (let index in whatToExtract) {
     let key = whatToExtract[index];
-    
+
     d[key] = {};
     d[key].deltaMax = dtStat[key].delta;
     d[key].total = dtStat[key].total;
   }
-  
+
   // this can be efficiently while processing the JSON data but the benefits are not worth the take
   // sort the data in ascending order of dates
   data.sort((a, b) => {
     const A = a.date.split('/'), B = b.date.split('/');
     return parseInt(A[2] + A[1] + A[0]) - parseInt(B[2] + B[1] + B[0]);
   });
-  
+
   var totalSum = JSON.copy(emptyData);
 
   for (let i in data) {
@@ -172,7 +145,7 @@ function parseJSON(json) {
 async function parseData() {
   dataCrunched = false;
   createCrunchMessages();
-  
+
   if (json) {
     [metadata, data] = parseJSON(json);
   }
@@ -180,7 +153,7 @@ async function parseData() {
     // how dare you API, you just returned nothing
     // hmm? I am coming for you...ouch!! nevermind.
   }
-  
+
   if (data.length == 0) {
     // we couldn't parse the JSON
     dataError = true;
@@ -189,71 +162,71 @@ async function parseData() {
   else {
     // plot all the data using least skipLength (= 1)
     skipLength = 1;
-    
+
     // assert samplingAmount <= data.length
     sampledData = [];
-    
+
     var sample = JSON.copy(emptyData);
-    
+
     // this is a mess because of floating point errors
     // 0 becomes -0.00000000000000000000228139723872
     // it becomes -1 when floored and gives TypeError (int -> X <- float)
     for (let i = 0; i < data.length; i++) {
       for (let index in whatToExtract) {
         let key = whatToExtract[index];
-        
+
         if (data[parseInt(Math.max(0, i - samplingAmount / 2))]) {
           sample[key].delta -= data[parseInt(Math.max(0, i - samplingAmount / 2))][key].delta;
           sample[key].total -= data[parseInt(Math.max(0, i - samplingAmount / 2))][key].total;
         }
-        
+
         if (data[parseInt(Math.min(data.length - 1, i + samplingAmount / 2))]) {
           sample[key].delta += data[parseInt(Math.min(data.length - 1, i + samplingAmount / 2))][key].delta;
           sample[key].total += data[parseInt(Math.min(data.length - 1, i + samplingAmount / 2))][key].total;
         }
       }
-      
+
       var average = JSON.copy(sample);
-      
+
       for (let index in whatToExtract) {
         let key = whatToExtract[index];
-        
+
         average[key].delta = sample[key].delta / samplingAmount;
         average[key].total = sample[key].total / samplingAmount;
       }
-      
+
       sampledData.push(average);
     }
   }
-  
+
   dataCrunched = true;
 }
 
 async function createFetchMessages() {
   var list = ["almost there!", "it is taking longer than expected"];
-  
+
   fetchMessage = "";
-  
+
   await sleep(400);
   fetchMessage = list[0];
-  
+
   await sleep(1600);
   fetchMessage = list[1];
 }
 
 async function createCrunchMessages() {
   var pieces = ["yum", "..", "yumm", "..", "yummy!!"];
-  
+
   while (!dataCrunched) {
     let i = 0;
 
     crunchMessage = "";
     await sleep(200);
-    
+
     while (i < pieces.length) {
       crunchMessage += pieces[i];
       i += 1;
-      
+
       await sleep(200);
     }
   }
@@ -261,14 +234,14 @@ async function createCrunchMessages() {
 
 async function fetchAndProcess() {
   dataError = false;
-  
+
   // fetch data from our API in the background
   // in order to get more SEO points... hahahahahahaha...
-  
+
   // does Google crawl into our scripts?
   // Okay Google! Make me some coffee!
   // Stop updating your apps when I have `auto-update` set to `disabled`
-  
+
   fetchData();
   createFetchMessages();
 };

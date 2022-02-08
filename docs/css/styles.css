@@ -35,7 +35,7 @@ body {
   transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
-body.dark-mode {
+html.dark-mode body {
   background-color: var(--bg-color-dark);
   color: white;
 }
@@ -54,7 +54,7 @@ header .heading-text {
   font-size: 2rem;
 }
 
-#dark-mode {
+#dark-mode-toggle {
   display: flex;
   width: var(--dark-mode-toggle-size);
   height: var(--dark-mode-toggle-size);
@@ -62,29 +62,29 @@ header .heading-text {
   fill: black;
 }
 
-#dark-mode svg {
+#dark-mode-toggle svg {
   aspect-ratio: 1;
   object-fit: contain;
 }
 
-#dark-mode .outer-star {
+#dark-mode-toggle .outer-star {
   transition: transform var(--dark-mode-toggle-transition) cubic-bezier(0.59, 0.02, 0, 1.26) 0s, fill var(--dark-mode-toggle-transition);
 }
 
-#dark-mode .inner-dot {
+#dark-mode-toggle .inner-dot {
   transition: transform var(--dark-mode-toggle-transition) ease 0s, fill var(--dark-mode-toggle-transition);
   transform: matrix(1, 0, 0, 1.5, -3, 0);
 }
 
-body.dark-mode #dark-mode {
+html.dark-mode #dark-mode-toggle {
   fill: white;
 }
 
-body.dark-mode #dark-mode .outer-star {
+html.dark-mode #dark-mode-toggle .outer-star {
   transform: rotate(180deg);
 }
 
-body.dark-mode #dark-mode .inner-dot {
+html.dark-mode #dark-mode-toggle .inner-dot {
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
 
