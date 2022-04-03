@@ -2,14 +2,14 @@
 // many forms of client side storage can be put to use to store current data and fetch only new data like `from-date=...&to-date=...`
 // this requires a custom backend server
 
-// but this was a just round1 (basic) for WebD-selection, although I have already been selected
+// but this was just round1 (basic) for WebD-selection, although I have already been selected
 
-//const apiURL = "https://api.covid19india.org/v4/min/timeseries.min.json";
+// const apiURL = "https://api.covid19india.org/v4/min/timeseries.min.json";
 const apiURL = "https://data.covid19india.org/v4/min/timeseries.min.json";
 const dataSource = "https://api.covid19india.org";
 
 // testing
-//const apiURL = './data/timeseries.json';
+// const apiURL = './data/timeseries.json';
 
 // hey, source code viewer! play around with some variables
 
@@ -118,7 +118,7 @@ function parseJSON(json) {
     d[key].total = dtStat[key].total;
   }
 
-  // this can be efficiently while processing the JSON data but the benefits are not worth the take
+  // this can be done efficiently while processing the JSON data but the benefits are not worth the take
   // sort the data in ascending order of dates
   data.sort((a, b) => {
     const A = a.date.split('/'), B = b.date.split('/');
@@ -151,7 +151,6 @@ async function parseData() {
   }
   else {
     // how dare you API, you just returned nothing
-    // hmm? I am coming for you...ouch!! nevermind.
   }
 
   if (data.length == 0) {
@@ -169,7 +168,7 @@ async function parseData() {
     var sample = JSON.copy(emptyData);
 
     // this is a mess because of floating point errors
-    // 0 becomes -0.00000000000000000000228139723872
+    // e.g. 0 becomes -0.00000000000000000000228139723872
     // it becomes -1 when floored and gives TypeError (int -> X <- float)
     for (let i = 0; i < data.length; i++) {
       for (let index in whatToExtract) {
@@ -203,7 +202,9 @@ async function parseData() {
 }
 
 async function createFetchMessages() {
-  var list = ["almost there!", "it is taking longer than expected"];
+  var list = [
+    "almost there!", "it is taking longer than expected"
+  ];
 
   fetchMessage = "";
 
@@ -215,7 +216,13 @@ async function createFetchMessages() {
 }
 
 async function createCrunchMessages() {
-  var pieces = ["yum", "..", "yumm", "..", "yummy!!"];
+  var pieces = [
+    "yum",
+    "..",
+    "yumm",
+    "..",
+    "yummy!!"
+  ];
 
   while (!dataCrunched) {
     let i = 0;

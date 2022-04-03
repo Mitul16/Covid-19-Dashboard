@@ -1,3 +1,4 @@
+// read the data from Local Storage
 var darkMode = localStorage.darkMode | false;
 
 function toggleDarkMode() {

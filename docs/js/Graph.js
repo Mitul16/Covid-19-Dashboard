@@ -3,7 +3,7 @@ class Graph {
     // hey, source code viewer! play around with some variables
     // don't you forget to give me credits if you use my code...welp!
 
-    // rendering
+    // rendering stuff
     var scalingFactor;
     const graphScalingFactor = 0.92, aspectRatio = 2;
     var lastDarkMode = darkMode;

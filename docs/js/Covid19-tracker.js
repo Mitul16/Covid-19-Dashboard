@@ -1,3 +1,4 @@
+// configurations for various type of graphs
 var casesConfiguration = {
   color  : '#FF0000FF',
   title  : 'Confirmed Cases',
